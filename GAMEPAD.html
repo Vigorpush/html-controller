@@ -28,7 +28,7 @@
     function reportOnGamepad() {
 		var html = "";
 		for (var j=0;j < (navigator.getGamepads().length/4);j++){
-		//alert(i);
+		html = "<div id='player_"+ (j+1)+"'>";
 		var gp = navigator.getGamepads()[j];
 		
             html +=  "GamePad Number: "+ ((gp.index)+1) +"<br/>"+"id: "+gp.id+"<br/>";
@@ -43,12 +43,13 @@
             html+= "Stick "+(Math.ceil(i/2)+1)+": "+gp.axes[i]+","+gp.axes[i+1]+"<br/>";
         }
 		}
-        $("#gamepadDisplay").html(html);
+		var finishedhtml = html +"</div>"
+        $("#gamepadDisplay").html(finishedhtml);
     }
  
     $(document).ready(function() {
  
-        if(canGame()) {
+        if(canGame()) {//check the gamepad
 
             var prompt = "To begin using your gamepad, connect it and press any button!";
             $("#gamepadPrompt").text(prompt);
@@ -58,11 +59,11 @@
                 $("#gamepadPrompt").html("Gamepad connected!");
                 console.log("connection event");
                 repGP = window.setInterval(reportOnGamepad,100);
-				
             });
  
             $(window).on("gamepaddisconnected", function() {
                 console.log("disconnection event");
+				$("#gamepadDisplay").empty();//Remove the text about the connect which related to game pad
                 $("#gamepadPrompt").text(prompt);
                 window.clearInterval(repGP);
             });
