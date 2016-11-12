@@ -12,8 +12,8 @@
     <body>
  
     <div id="gamepadPrompt"></div>
-    <div id="gamepadDisplay"></div>
     <div id="gamepadListener"></div>
+    <div id="gamepadDisplay"></div>
 	
  
     <script>
@@ -27,8 +27,8 @@
 	
     function reportOnGamepad() {
 		var html = "";
-		for (var i=0;i < navigator.getGamepads().length/4;i++){
-        alert(navigator.getGamepads().length);
+		for (var i=0;i < (navigator.getGamepads().length/4);i++){
+		alert(i);
 		var gp = navigator.getGamepads()[i];
 		
             html +=  "GamePad Number: "+ ((gp.index)+1) +"<br/>"+"id: "+gp.id+"<br/>";
@@ -52,10 +52,12 @@
 
             var prompt = "To begin using your gamepad, connect it and press any button!";
             $("#gamepadPrompt").text(prompt);
- 
+            
             $(window).on("gamepadconnected", function() {
                 hasGP = true;
                 $("#gamepadPrompt").html("Gamepad connected!");
+                
+ 
                 console.log("connection event");
                 repGP = window.setInterval(reportOnGamepad,100);
 				
@@ -63,6 +65,7 @@
  
             $(window).on("gamepaddisconnected", function() {
                 console.log("disconnection event");
+
                 $("#gamepadPrompt").text(prompt);
                 window.clearInterval(repGP);
             });
