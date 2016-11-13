@@ -63,6 +63,7 @@
  
             $(window).on("gamepaddisconnected", function() {
                 console.log("disconnection event");
+
 				$("#gamepadDisplay").empty();//Remove the text about the connect which related to game pad
                 $("#gamepadPrompt").text(prompt);
                 window.clearInterval(repGP);
@@ -78,6 +79,7 @@
             }, 500);
         }
     });
+
     </script>
     </body>
 </html>
